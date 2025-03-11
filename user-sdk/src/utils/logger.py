@@ -1,7 +1,12 @@
 import logging
 import os
 
-LOG_FILE = os.path.join(os.getenv("APPDATA", "C:\\Logs"), "user_sdk.log")
+# Ensure log directory exists
+log_dir = os.getenv("APPDATA", "C:\\Logs")
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)  # Creates C:\Logs if it doesn’t exist
+
+LOG_FILE = os.path.join(log_dir, "user_sdk.log")
 
 def setup_logger():
     """Configures logging for the application."""
@@ -14,20 +19,22 @@ def setup_logger():
 
 def log_event(level, message):
     """Logs an event at the specified level."""
+    logger = logging.getLogger()
     if level.lower() == "info":
-        logging.info(message)
+        logger.info(message)
     elif level.lower() == "warning":
-        logging.warning(message)
+        logger.warning(message)
     elif level.lower() == "error":
-        logging.error(message)
+        logger.error(message)
     else:
-        logging.debug(message)
+        logger.debug(message)
 
 # Initialize logger
 setup_logger()
 
 # Example Usage
 if __name__ == "__main__":
-    log_event("info", "Application started")
-    log_event("error", "This is a test error")
-    print(f"Logs saved to {LOG_FILE}")
+    log_event("info", "✅ Application started successfully")
+    log_event("warning", "⚠️ This is a warning message")
+    log_event("error", "❌ This is an error message")
+    print(f"📁 Logs saved to: {LOG_FILE}")
