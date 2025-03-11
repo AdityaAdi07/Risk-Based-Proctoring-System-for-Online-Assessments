@@ -1,0 +1,7 @@
+{
+    "mouse_sensitivity": 10,
+    "keyboard_sensitivity": 5,
+    "focus_check_interval": 2,
+    "api_url": "http://localhost:5000/api"
+  }
+  
